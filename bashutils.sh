@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ROOT_DIR=~/bashutils
 # utils for this util
 
 # MISC
@@ -9,7 +9,17 @@ alias ip="ipconfig getifaddr en0"
 # alias ip="ifconfig en0| sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 # https://stackoverflow.com/questions/13322485/how-to-get-the-primary-ip-address-of-the-local-machine-on-linux-and-os-x
 
-# git
+# =========== git ==========
+# git details
+gd() {
+  git status 1>/dev/null 2>/dev/null
+  if [ "$?" != "0" ]; then
+    echo "Not a Git repo."
+    return 1
+  fi
+  echo "Git repo remote URL: `git config --get remote.origin.url`"
+  cat "`git rev-parse --show-toplevel`/.git/config"
+}
 
 gitcontainscommit() {
     if [ 0 -eq $(git merge-base --is-ancestor $1) ]; then echo "true"; else echo "false"; fi
@@ -17,7 +27,7 @@ gitcontainscommit() {
 
 alias gs="git status"
 # git checkout alias with completion
-. ~/.git-completion.bash
+source ${ROOT_DIR}/git-completion.bash
 alias gco="git checkout"
 __git_complete gco _git_checkout
 	
