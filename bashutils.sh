@@ -25,6 +25,7 @@ gitcontainscommit() {
     if [ 0 -eq $(git merge-base --is-ancestor $1) ]; then echo "true"; else echo "false"; fi
 }
 
+alias gl="git log --pretty=oneline"
 alias gs="git status"
 # git checkout alias with completion
 source ${ROOT_DIR}/git-completion.bash
