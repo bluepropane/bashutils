@@ -22,12 +22,17 @@ gd() {
 }
 
 gitcontainscommit() {
-    if [ 0 -eq $(git merge-base --is-ancestor $1) ]; then echo "true"; else echo "false"; fi
+    if [ "0" -eq "$(git merge-base --is-ancestor $1)" ]; then echo "true"; else echo "false"; fi
 }
 
+alias gp="git push"
 alias gr="git reset"
 alias gl="git log --pretty=oneline"
 alias gs="git status"
+alias gs+="git stash push"
+alias gs-="git stash pop"
+alias gsl="git stash list"
+
 # git checkout alias with completion
 source ${ROOT_DIR}/git-completion.bash
 alias gco="git checkout"
@@ -39,7 +44,7 @@ gpush() {
   git push
 }
 
-gitmergefrom () {
+gitmergehead () {
   if [ "$1" != "" ]; then
     CURRENT_BRANCH=`git branch | grep \* | cut -d ' ' -f2`
     gco $1 && git pull
