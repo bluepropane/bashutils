@@ -39,7 +39,7 @@ alias gco="git checkout"
 __git_complete gco _git_checkout
 	
 gpush() {
-  git add .
+  git add -A
   git commit -m "$1"
   git push
 }
